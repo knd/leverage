@@ -10,14 +10,18 @@ import { ProgressContext } from '../contexts/ProgressContext'
 export const NavigationBar = () => {
   return (
     <ProgressContext.Consumer>
-      {({ currentRound, selectedActivityCount, totalActivityCount }) => (
+      {({
+        currentRound,
+        selectedActivityCount,
+        currentRoundRequiredSelectionCount
+      }) => (
         <Container>
           <Box flexDirection='row' height={60} justifyContent='space-between'>
             <RoundCounter round={currentRound} />
-            <Instruction totalCardCount={totalActivityCount} />
+            <Instruction totalCardCount={currentRoundRequiredSelectionCount} />
             <SelectCounter
               currentCount={selectedActivityCount()}
-              totalCount={totalActivityCount}
+              totalCount={currentRoundRequiredSelectionCount}
             />
           </Box>
           <Divider />

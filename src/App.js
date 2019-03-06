@@ -30,15 +30,22 @@ class App extends Component {
     super(props)
     this.state = {
       selectedActivityKeys: [],
-      totalActivityCount: Object.keys(activities).length,
       activities: activities,
-      currentRound: 1
+      currentRound: 1,
+      currentRoundActivityKeys: Object.keys(activities),
+      currentRoundRequiredSelectionCount: Math.ceil(
+        Object.keys(activities).length / 2
+      )
     }
 
     this.resetSelection = () => {
       this.setState(() => ({
         selectedActivityKeys: [],
-        currentRound: 1
+        currentRound: 1,
+        currentRoundActivityKeys: Object.keys(activities),
+        currentRoundRequiredSelectionCount: Math.ceil(
+          Object.keys(activities).length / 2
+        )
       }))
     }
 
@@ -63,12 +70,26 @@ class App extends Component {
 
     this.proceedNextRound = () => {
       this.setState(state => ({
-        currentRound: state.currentRound + 1
+        selectedActivityKeys: [],
+        currentRound: state.currentRound + 1,
+        currentRoundActivityKeys: state.currentRoundActivityKeys.filter(
+          key => !state.selectedActivityKeys.includes(key)
+        ),
+        currentRoundRequiredSelectionCount: Math.ceil(
+          state.currentRoundRequiredSelectionCount / 2
+        )
       }))
     }
 
-    this.ableToProceedNextRound = () =>
-      this.state.selectedActivityKeys.length < 3
+    this.ableToProceedNextRound = () => {
+      if (this.isEndOfRound()) return false
+      return (
+        this.state.selectedActivityKeys.length ===
+        this.state.currentRoundRequiredSelectionCount
+      )
+    }
+
+    this.isEndOfRound = () => this.state.currentRoundRequiredSelectionCount <= 2
   }
 
   render() {
@@ -83,7 +104,8 @@ class App extends Component {
             resetSelection: this.resetSelection,
             selectedActivityCount: this.selectedActivityCount,
             proceedNextRound: this.proceedNextRound,
-            ableToProceedNextRound: this.ableToProceedNextRound
+            ableToProceedNextRound: this.ableToProceedNextRound,
+            isEndOfRound: this.isEndOfRound
           }}
         >
           <ThemeContext.Provider value={theme}>

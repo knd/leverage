@@ -9,17 +9,19 @@ const Home = () => {
   return (
     <ProgressContext.Consumer>
       {({
+        currentRoundActivityKeys,
         activities,
         resetSelection,
         isActivitySelected,
         unselectActivity,
         selectActivity,
         proceedNextRound,
-        ableToProceedNextRound
+        ableToProceedNextRound,
+        isEndOfRound
       }) => (
         <Container>
           <Row>
-            {Object.keys(activities).map(key => (
+            {currentRoundActivityKeys.map(key => (
               <Col key={key} md={4}>
                 <Box
                   paddingVertical={20}
@@ -59,10 +61,10 @@ const Home = () => {
             </Box>
             <Box marginHorizontal={10}>
               <Button
-                title='Proceed'
+                title={isEndOfRound() ? 'No more round' : 'Proceed'}
                 color='primary'
                 size='large'
-                isDisabled={ableToProceedNextRound()}
+                isDisabled={!ableToProceedNextRound()}
                 onClick={() => proceedNextRound()}
               />
             </Box>
