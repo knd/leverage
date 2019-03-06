@@ -1,11 +1,10 @@
 import React from 'react'
 import { Box, Text } from 'paramount-ui'
 
-export const RoundCounter = props => {
-  // TODO: Implement this
+export const RoundCounter = ({ round }) => {
   return (
     <Box justifyContent='center'>
-      <Text>Round 1</Text>
+      <Text>Round {round}</Text>
     </Box>
   )
 }

@@ -8,7 +8,15 @@ import { ProgressContext } from '../contexts/ProgressContext'
 const Home = () => {
   return (
     <ProgressContext.Consumer>
-      {({ activities, resetSelection }) => (
+      {({
+        activities,
+        resetSelection,
+        isActivitySelected,
+        unselectActivity,
+        selectActivity,
+        proceedNextRound,
+        ableToProceedNextRound
+      }) => (
         <Container>
           <Row>
             {Object.keys(activities).map(key => (
@@ -19,19 +27,45 @@ const Home = () => {
                   alignItems='center'
                   key={key}
                 >
-                  <Card activity={{ activityKey: key, ...activities[key] }} />
+                  <Card
+                    label={activities[key].title}
+                    displayable={isActivitySelected(key)}
+                    onClick={() => {
+                      if (isActivitySelected(key)) {
+                        unselectActivity(key)
+                        return
+                      }
+                      selectActivity(key)
+                    }}
+                  />
                 </Box>
               </Col>
             ))}
           </Row>
           <Divider />
-          <Box justifyContent='center' alignItems='center' marginVertical={10}>
-            <Button
-              title='Reset'
-              color='secondary'
-              size='medium'
-              onClick={() => resetSelection()}
-            />
+          <Box
+            flexDirection='row'
+            justifyContent='center'
+            alignItems='center'
+            marginVertical={10}
+          >
+            <Box marginHorizontal={10}>
+              <Button
+                title='Reset'
+                color='secondary'
+                size='large'
+                onClick={() => resetSelection()}
+              />
+            </Box>
+            <Box marginHorizontal={10}>
+              <Button
+                title='Proceed'
+                color='primary'
+                size='large'
+                isDisabled={ableToProceedNextRound()}
+                onClick={() => proceedNextRound()}
+              />
+            </Box>
           </Box>
         </Container>
       )}

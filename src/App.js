@@ -31,11 +31,15 @@ class App extends Component {
     this.state = {
       selectedActivityKeys: [],
       totalActivityCount: Object.keys(activities).length,
-      activities: activities
+      activities: activities,
+      currentRound: 1
     }
 
     this.resetSelection = () => {
-      this.setState(() => ({ selectedActivityKeys: [] }))
+      this.setState(() => ({
+        selectedActivityKeys: [],
+        currentRound: 1
+      }))
     }
 
     this.isActivitySelected = activityKey =>
@@ -56,6 +60,15 @@ class App extends Component {
     }
 
     this.selectedActivityCount = () => this.state.selectedActivityKeys.length
+
+    this.proceedNextRound = () => {
+      this.setState(state => ({
+        currentRound: state.currentRound + 1
+      }))
+    }
+
+    this.ableToProceedNextRound = () =>
+      this.state.selectedActivityKeys.length < 3
   }
 
   render() {
@@ -68,7 +81,9 @@ class App extends Component {
             selectActivity: this.selectActivity,
             unselectActivity: this.unselectActivity,
             resetSelection: this.resetSelection,
-            selectedActivityCount: this.selectedActivityCount
+            selectedActivityCount: this.selectedActivityCount,
+            proceedNextRound: this.proceedNextRound,
+            ableToProceedNextRound: this.ableToProceedNextRound
           }}
         >
           <ThemeContext.Provider value={theme}>
