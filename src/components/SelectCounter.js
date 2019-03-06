@@ -1,11 +1,17 @@
 import React from 'react'
 import { Box, Text } from 'paramount-ui'
 
+import { ProgressContext } from '../contexts/ProgressContext'
+
 export const SelectCounter = props => {
   // TODO: Implement this
   return (
-    <Box justifyContent='center'>
-      <Text>0/20</Text>
-    </Box>
+    <ProgressContext.Consumer>
+      {({ selectedCardCount }) => (
+        <Box justifyContent='center'>
+          <Text>{selectedCardCount}/20</Text>
+        </Box>
+      )}
+    </ProgressContext.Consumer>
   )
 }

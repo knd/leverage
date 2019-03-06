@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createTheme, ThemeContext } from 'paramount-ui'
 
+import { ProgressContext } from './contexts/ProgressContext'
 import { NavigationBar } from './components/NavigationBar'
 import Home from './pages/Home'
 
@@ -23,15 +24,41 @@ const theme = createTheme({
 })
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedCardCount: 0
+    }
+
+    this.incrementSelectedCardCount = () => {
+      this.setState(state => ({
+        selectedCardCount: state.selectedCardCount + 1
+      }))
+    }
+
+    this.resetSelectedCardCount = () => {
+      this.setState(state => ({
+        selectedCardCount: 0
+      }))
+    }
+  }
+
   render() {
     return (
       <Router>
-        <ThemeContext.Provider value={theme}>
-          <NavigationBar />
-          <Switch>
-            <Route exact path='/' component={Home} />
-          </Switch>
-        </ThemeContext.Provider>
+        <ProgressContext.Provider
+          value={{
+            ...this.state,
+            incrementSelectedCardCount: this.incrementSelectedCardCount
+          }}
+        >
+          <ThemeContext.Provider value={theme}>
+            <NavigationBar />
+            <Switch>
+              <Route exact path='/' component={Home} />
+            </Switch>
+          </ThemeContext.Provider>
+        </ProgressContext.Provider>
       </Router>
     )
   }
