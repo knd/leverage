@@ -72,8 +72,8 @@ class App extends Component {
       this.setState(state => ({
         selectedActivityKeys: [],
         currentRound: state.currentRound + 1,
-        currentRoundActivityKeys: state.currentRoundActivityKeys.filter(
-          key => !state.selectedActivityKeys.includes(key)
+        currentRoundActivityKeys: state.currentRoundActivityKeys.filter(key =>
+          state.selectedActivityKeys.includes(key)
         ),
         currentRoundRequiredSelectionCount: Math.ceil(
           state.currentRoundRequiredSelectionCount / 2
@@ -89,7 +89,7 @@ class App extends Component {
       )
     }
 
-    this.isEndOfRound = () => this.state.currentRoundRequiredSelectionCount <= 2
+    this.isEndOfRound = () => this.state.currentRoundRequiredSelectionCount < 2
   }
 
   render() {
