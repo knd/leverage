@@ -1,29 +1,41 @@
 import React from 'react'
-import { Box } from 'paramount-ui'
+import { Box, Button, Divider } from 'paramount-ui'
 import { Col, Container, Row } from 'react-grid-system'
 
 import { Card } from '../components/Card'
+import { ProgressContext } from '../contexts/ProgressContext'
 
-import activities from '../data/activities'
-
-const Home = props => {
+const Home = () => {
   return (
-    <Container>
-      <Row>
-        {Object.keys(activities).map(key => (
-          <Col key={key} md={4}>
-            <Box
-              paddingVertical={20}
-              justifyContent='center'
-              alignItems='center'
-              key={key}
-            >
-              <Card activity={activities[key]} />
-            </Box>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <ProgressContext.Consumer>
+      {({ activities, resetSelection }) => (
+        <Container>
+          <Row>
+            {Object.keys(activities).map(key => (
+              <Col key={key} md={4}>
+                <Box
+                  paddingVertical={20}
+                  justifyContent='center'
+                  alignItems='center'
+                  key={key}
+                >
+                  <Card activity={{ activityKey: key, ...activities[key] }} />
+                </Box>
+              </Col>
+            ))}
+          </Row>
+          <Divider />
+          <Box justifyContent='center' alignItems='center' marginVertical={10}>
+            <Button
+              title='Reset'
+              color='secondary'
+              size='medium'
+              onClick={() => resetSelection()}
+            />
+          </Box>
+        </Container>
+      )}
+    </ProgressContext.Consumer>
   )
 }
 

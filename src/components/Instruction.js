@@ -1,11 +1,10 @@
 import React from 'react'
 import { Box, Text } from 'paramount-ui'
 
-export const Instruction = props => {
-  // TODO: Implement this
+export const Instruction = ({ totalCardCount }) => {
   return (
     <Box justifyContent='center'>
-      <Text>Select 20 cards below</Text>
+      <Text>Select {totalCardCount} cards below</Text>
     </Box>
   )
 }

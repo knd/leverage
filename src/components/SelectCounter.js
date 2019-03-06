@@ -3,13 +3,14 @@ import { Box, Text } from 'paramount-ui'
 
 import { ProgressContext } from '../contexts/ProgressContext'
 
-export const SelectCounter = props => {
-  // TODO: Implement this
+export const SelectCounter = () => {
   return (
     <ProgressContext.Consumer>
-      {({ selectedCardCount }) => (
+      {({ selectedActivityCount, totalActivityCount }) => (
         <Box justifyContent='center'>
-          <Text>{selectedCardCount}/20</Text>
+          <Text>
+            {selectedActivityCount()} / {totalActivityCount}
+          </Text>
         </Box>
       )}
     </ProgressContext.Consumer>

@@ -6,6 +6,7 @@ import { NavigationBar } from './components/NavigationBar'
 import Home from './pages/Home'
 
 import { ProgressContext } from './contexts/ProgressContext'
+import activities from './data/activities'
 
 const theme = createTheme({
   colors: {
@@ -28,20 +29,33 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedCardCount: 0
+      selectedActivityKeys: [],
+      totalActivityCount: Object.keys(activities).length,
+      activities: activities
     }
 
-    this.incrementSelectedCardCount = () => {
+    this.resetSelection = () => {
+      this.setState(() => ({ selectedActivityKeys: [] }))
+    }
+
+    this.isActivitySelected = activityKey =>
+      this.state.selectedActivityKeys.includes(activityKey)
+
+    this.selectActivity = activityKey => {
       this.setState(state => ({
-        selectedCardCount: state.selectedCardCount + 1
+        selectedActivityKeys: state.selectedActivityKeys.concat([activityKey])
       }))
     }
 
-    this.resetSelectedCardCount = () => {
-      this.setState({
-        selectedCardCount: 0
-      })
+    this.unselectActivity = activityKey => {
+      this.setState(state => ({
+        selectedActivityKeys: state.selectedActivityKeys.filter(
+          key => key !== activityKey
+        )
+      }))
     }
+
+    this.selectedActivityCount = () => this.state.selectedActivityKeys.length
   }
 
   render() {
@@ -50,8 +64,11 @@ class App extends Component {
         <ProgressContext.Provider
           value={{
             ...this.state,
-            incrementSelectedCardCount: this.incrementSelectedCardCount,
-            resetSelectedCardCount: this.resetSelectedCardCount
+            isActivitySelected: this.isActivitySelected,
+            selectActivity: this.selectActivity,
+            unselectActivity: this.unselectActivity,
+            resetSelection: this.resetSelection,
+            selectedActivityCount: this.selectedActivityCount
           }}
         >
           <ThemeContext.Provider value={theme}>

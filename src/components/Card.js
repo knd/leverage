@@ -5,30 +5,29 @@ import { TouchableOpacity } from 'react-native'
 import { ProgressContext } from '../contexts/ProgressContext'
 
 export const Card = ({ activity }) => {
-  const { title } = activity
-  const [selected, setSelected] = React.useState(false)
+  const { activityKey, title } = activity
 
   return (
     <ProgressContext.Consumer>
-      {({ incrementSelectedCardCount }) => (
+      {({ isActivitySelected, unselectActivity, selectActivity }) => (
         <TouchableOpacity
           onPress={() => {
-            // increment
-            incrementSelectedCardCount()
-            console.log(title)
-            if (selected) {
-              setSelected(false)
+            if (isActivitySelected(activityKey)) {
+              unselectActivity(activityKey)
               return
             }
-            setSelected(true)
+            selectActivity(activityKey)
           }}
         >
           <Box
-            backgroundColor={selected ? 'green' : 'blue'}
+            backgroundColor={
+              isActivitySelected(activityKey) ? '#c0c0c0' : 'white'
+            }
             height={200}
             width={200}
             justifyContent='center'
             alignItems='center'
+            border='1px solid'
           >
             <Text>{title}</Text>
           </Box>
