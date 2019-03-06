@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Divider } from 'paramount-ui'
+import { Box } from 'paramount-ui'
 import { Col, Container, Row } from 'react-grid-system'
 
 import { Card } from '../components/Card'
@@ -11,13 +11,9 @@ const Home = () => {
       {({
         currentRoundActivityKeys,
         activities,
-        resetSelection,
         isActivitySelected,
         unselectActivity,
-        selectActivity,
-        proceedNextRound,
-        ableToProceedNextRound,
-        isEndOfRound
+        selectActivity
       }) => (
         <Container>
           <Row>
@@ -44,31 +40,6 @@ const Home = () => {
               </Col>
             ))}
           </Row>
-          <Divider />
-          <Box
-            flexDirection='row'
-            justifyContent='center'
-            alignItems='center'
-            marginVertical={10}
-          >
-            <Box marginHorizontal={10}>
-              <Button
-                title='Reset'
-                color='secondary'
-                size='large'
-                onClick={() => resetSelection()}
-              />
-            </Box>
-            <Box marginHorizontal={10}>
-              <Button
-                title={isEndOfRound() ? 'No more round' : 'Proceed'}
-                color='primary'
-                size='large'
-                isDisabled={!ableToProceedNextRound()}
-                onClick={() => proceedNextRound()}
-              />
-            </Box>
-          </Box>
         </Container>
       )}
     </ProgressContext.Consumer>

@@ -1,32 +1,43 @@
 import React from 'react'
-import { Box, Divider } from 'paramount-ui'
+import { Box, Button } from 'paramount-ui'
 import { Container } from 'react-grid-system'
 
 import { RoundCounter } from './RoundCounter'
 import { Instruction } from './Instruction'
 import { SelectCounter } from './SelectCounter'
-import { ProgressContext } from '../contexts/ProgressContext'
 
-export const NavigationBar = () => {
+export const NavigationBar = ({
+  round,
+  isFinalRound,
+  selectedActivityCount,
+  requiredSelectionCount,
+  displayProceedButton,
+  onClickProceedButton
+}) => {
   return (
-    <ProgressContext.Consumer>
-      {({
-        currentRound,
-        selectedActivityCount,
-        currentRoundRequiredSelectionCount
-      }) => (
-        <Container>
-          <Box flexDirection='row' height={60} justifyContent='space-between'>
-            <RoundCounter round={currentRound} />
-            <Instruction totalCardCount={currentRoundRequiredSelectionCount} />
-            <SelectCounter
-              currentCount={selectedActivityCount()}
-              totalCount={currentRoundRequiredSelectionCount}
+    <Container>
+      <Box flexDirection='row' height={80} justifyContent='space-between'>
+        <RoundCounter round={round} isFinalRound={isFinalRound} />
+        {displayProceedButton ? (
+          <Box marginVertical={10}>
+            <Button
+              title='Proceed'
+              color='primary'
+              size='large'
+              onClick={onClickProceedButton}
             />
           </Box>
-          <Divider />
-        </Container>
-      )}
-    </ProgressContext.Consumer>
+        ) : (
+          <Instruction
+            totalCardCount={requiredSelectionCount}
+            isFinalRound={isFinalRound}
+          />
+        )}
+        <SelectCounter
+          currentCount={selectedActivityCount}
+          totalCount={requiredSelectionCount}
+        />
+      </Box>
+    </Container>
   )
 }

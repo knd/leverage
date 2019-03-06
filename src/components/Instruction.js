@@ -1,10 +1,16 @@
 import React from 'react'
-import { Box, Text } from 'paramount-ui'
+import { Box, Heading, Text } from 'paramount-ui'
 
-export const Instruction = ({ totalCardCount }) => {
+export const Instruction = ({ totalCardCount, isFinalRound }) => {
   return (
     <Box justifyContent='center'>
-      <Text>Select {totalCardCount} cards below</Text>
+      {isFinalRound ? (
+        <Text color='success' size='large'>
+          Choose Your Activity Today
+        </Text>
+      ) : (
+        <Heading size='xxlarge'>Choose {totalCardCount} cards below</Heading>
+      )}
     </Box>
   )
 }

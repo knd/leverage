@@ -1,10 +1,14 @@
 import React from 'react'
-import { Box, Text } from 'paramount-ui'
+import { Box, Heading } from 'paramount-ui'
 
-export const RoundCounter = ({ round }) => {
+export const RoundCounter = ({ round, isFinalRound }) => {
   return (
     <Box justifyContent='center'>
-      <Text>Round {round}</Text>
+      {isFinalRound ? (
+        <Heading size='xxlarge'>Final Round</Heading>
+      ) : (
+        <Heading size='xxlarge'>Round {round}</Heading>
+      )}
     </Box>
   )
 }

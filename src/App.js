@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { createTheme, ThemeContext } from 'paramount-ui'
+import { createTheme, Divider, ThemeContext } from 'paramount-ui'
 
 import { NavigationBar } from './components/NavigationBar'
 import Home from './pages/Home'
@@ -89,7 +89,7 @@ class App extends Component {
       )
     }
 
-    this.isEndOfRound = () => this.state.currentRoundRequiredSelectionCount < 2
+    this.isEndOfRound = () => this.state.currentRoundRequiredSelectionCount <= 1
   }
 
   render() {
@@ -101,7 +101,7 @@ class App extends Component {
             isActivitySelected: this.isActivitySelected,
             selectActivity: this.selectActivity,
             unselectActivity: this.unselectActivity,
-            resetSelection: this.resetSelection,
+            onClickResetButton: this.resetSelection,
             selectedActivityCount: this.selectedActivityCount,
             proceedNextRound: this.proceedNextRound,
             ableToProceedNextRound: this.ableToProceedNextRound,
@@ -109,7 +109,17 @@ class App extends Component {
           }}
         >
           <ThemeContext.Provider value={theme}>
-            <NavigationBar />
+            <NavigationBar
+              round={this.state.currentRound}
+              requiredSelectionCount={
+                this.state.currentRoundRequiredSelectionCount
+              }
+              selectedActivityCount={this.selectedActivityCount()}
+              displayProceedButton={this.ableToProceedNextRound()}
+              onClickProceedButton={this.proceedNextRound}
+              isFinalRound={this.isEndOfRound()}
+            />
+            <Divider />
             <Switch>
               <Route exact path='/' component={Home} />
             </Switch>
