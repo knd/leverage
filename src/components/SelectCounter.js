@@ -1,9 +1,11 @@
 import React from 'react'
-import { Box, Button, Heading } from 'paramount-ui'
+import { Box, Button, Text, ThemeContext } from 'paramount-ui'
 
 import { ProgressContext } from '../contexts/ProgressContext'
 
 export const SelectCounter = ({ currentCount, totalCount }) => {
+  const theme = React.useContext(ThemeContext)
+
   return (
     <ProgressContext.Consumer>
       {({ onClickResetButton }) => (
@@ -16,9 +18,25 @@ export const SelectCounter = ({ currentCount, totalCount }) => {
               onClick={onClickResetButton}
             />
           </Box>
-          <Heading size='xxlarge'>
-            {currentCount} / {totalCount}
-          </Heading>
+          <Text
+            style={{
+              fontSize: '28px',
+              fontWeight: '600',
+              color:
+                currentCount === totalCount
+                  ? theme.colors.text.primary
+                  : currentCount > totalCount
+                  ? 'red'
+                  : '#7e7e7e'
+            }}
+          >
+            {currentCount}{' '}
+          </Text>
+          <Text
+            style={{ fontSize: '28px', fontWeight: '600', color: '#7e7e7e' }}
+          >
+            / {totalCount}
+          </Text>
         </Box>
       )}
     </ProgressContext.Consumer>

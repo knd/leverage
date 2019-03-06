@@ -14,10 +14,10 @@ const theme = createTheme({
       secondary: {
         default: '#f3b058'
       }
+    },
+    text: {
+      primary: '#3fa296'
     }
-  },
-  text: {
-    primary: '#3fa296'
   },
   fontFamilies: {
     text: "'proxima-nova', Arial, Helvetica, sans-serif",
