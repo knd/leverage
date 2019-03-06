@@ -1,26 +1,28 @@
 import React from 'react'
-import { Box, Text } from 'paramount-ui'
-import { Container } from 'react-grid-system'
+import { Box } from 'paramount-ui'
+import { Col, Container, Row } from 'react-grid-system'
 
 import { Card } from '../components/Card'
 
+import activities from '../data/activities'
+
 const Home = props => {
-  // TODO: Implement this
   return (
     <Container>
-      <Box
-        flexDirection='row'
-        justifyContent='center'
-        alignItems='center'
-        paddingVertical={80}
-      >
-        <Box>
-          <Text>This is body</Text>
-        </Box>
-        <Box>
-          <Card title='hello world' />
-        </Box>
-      </Box>
+      <Row>
+        {Object.keys(activities).map(key => (
+          <Col key={key} md={4}>
+            <Box
+              paddingVertical={20}
+              justifyContent='center'
+              alignItems='center'
+              key={key}
+            >
+              <Card activity={activities[key]} />
+            </Box>
+          </Col>
+        ))}
+      </Row>
     </Container>
   )
 }

@@ -4,7 +4,8 @@ import { TouchableOpacity } from 'react-native'
 
 import { ProgressContext } from '../contexts/ProgressContext'
 
-export const Card = ({ title }) => {
+export const Card = ({ activity }) => {
+  const { title } = activity
   const [selected, setSelected] = React.useState(false)
 
   return (
@@ -14,7 +15,7 @@ export const Card = ({ title }) => {
           onPress={() => {
             // increment
             incrementSelectedCardCount()
-
+            console.log(title)
             if (selected) {
               setSelected(false)
               return
@@ -29,7 +30,7 @@ export const Card = ({ title }) => {
             justifyContent='center'
             alignItems='center'
           >
-            <Text title={title} />
+            <Text>{title}</Text>
           </Box>
         </TouchableOpacity>
       )}

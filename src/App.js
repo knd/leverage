@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { createTheme, ThemeContext } from 'paramount-ui'
 
-import { ProgressContext } from './contexts/ProgressContext'
 import { NavigationBar } from './components/NavigationBar'
 import Home from './pages/Home'
+
+import { ProgressContext } from './contexts/ProgressContext'
 
 const theme = createTheme({
   colors: {
@@ -37,9 +38,9 @@ class App extends Component {
     }
 
     this.resetSelectedCardCount = () => {
-      this.setState(state => ({
+      this.setState({
         selectedCardCount: 0
-      }))
+      })
     }
   }
 
@@ -49,7 +50,8 @@ class App extends Component {
         <ProgressContext.Provider
           value={{
             ...this.state,
-            incrementSelectedCardCount: this.incrementSelectedCardCount
+            incrementSelectedCardCount: this.incrementSelectedCardCount,
+            resetSelectedCardCount: this.resetSelectedCardCount
           }}
         >
           <ThemeContext.Provider value={theme}>
