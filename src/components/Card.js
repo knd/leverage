@@ -23,8 +23,8 @@ export const Card = ({ label, highlighted, onClick }) => {
         <Box paddingHorizontal={20}>
           <Text
             style={{
-              'font-weight': 600,
-              'font-size': '18px',
+              fontWeight: 600,
+              fontSize: '18px',
               textAlign: 'center'
             }}
           >
