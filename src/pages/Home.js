@@ -27,7 +27,7 @@ const Home = () => {
                 >
                   <Card
                     label={activities[key].title}
-                    displayable={isActivitySelected(key)}
+                    highlighted={isActivitySelected(key)}
                     onClick={() => {
                       if (isActivitySelected(key)) {
                         unselectActivity(key)
