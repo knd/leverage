@@ -17,13 +17,15 @@ export const Card = ({ label, highlighted, onClick }) => {
         width={200}
         justifyContent='center'
         alignItems='center'
-        border='1px solid #BFBFBF'
+        borderWidth='1px'
+        borderStyle='solid'
+        borderColor='#BFBFBF'
         boxShadow='7px 7px 4px #aaaaaa'
       >
         <Box paddingHorizontal={20}>
           <Text
             style={{
-              fontWeight: 600,
+              fontWeight: '600',
               fontSize: '18px',
               textAlign: 'center'
             }}
