@@ -16,7 +16,12 @@ export const NavigationBar = ({
 }) => {
   return (
     <Container>
-      <Box flexDirection='row' height={80} justifyContent='space-between'>
+      <Box
+        flexDirection='row'
+        height={80}
+        justifyContent='space-between'
+        flexWrap='wrap'
+      >
         <RoundCounter round={round} isFinalRound={isFinalRound} />
         {displayProceedButton ? (
           <Box marginVertical={10}>
